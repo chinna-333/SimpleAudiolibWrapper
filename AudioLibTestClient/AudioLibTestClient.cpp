@@ -5,16 +5,17 @@
 
 // sound assets are placed under "AudioLib/sound assets" and defined in audiolib.h
 
-// currently three sound assets are defined in dll (audiolib.h) -- SOUND_ONE, SOUND_TWO, SOUND_THREE
-// To add different sounds place the new sounds in above mentioned folder and define in audiolib.h
+// currently three sound assets are defined in dll -- (audiolib.h) -- SOUND_ONE, SOUND_TWO, SOUND_THREE
+// To add different sounds place the new sounds in above mentioned folder and define them in audiolib.h
 
 // you can use playSound function to play sound files not in assets also. 
 // simply pass the path (remember to escape every "\") to the sound file in the funtion argument.
+// note that the path must be atmost 256 characters long including null character.
 
-// note that only .wav files are currently supported.
+// only .wav files are currently supported.
 
 // always terminate the program with exit(0) if addSoundToQueue() or playSoundLoop() is used. 
-// because they are async methods and are not terminated implicitly by underlying windows api.
+// because they are asynchronous methods and are not terminated implicitly by underlying api.
 
 int main(){
 
@@ -35,11 +36,13 @@ int main(){
 	printf("finished\n");
 	*/
 
+
 	// play a list of sounds in sequence. uncomment the below block to check it. 
 	/*
 	char *list[256] = { SOUND_ONE, SOUND_TWO, SOUND_THREE };
 	playListInSequence(list, 3);
 	*/
+
 
 	// the below is asynchronous playing queue. the above mentioned playListInSequence is blocking method.
 	// play queue provides a non blocking approach. ie sound plays in the background. while execution continues.
@@ -51,6 +54,11 @@ int main(){
 	addSoundToQueue(SOUND_TWO);
 	addSoundToQueue(SOUND_THREE);
 	*/
+
+	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully.
+	// if we add that method at the end of above block no sound will be played as it stops the queue immediately--asynchronously.
+
+	// TODO implement a delayed stop queue method which stops the queue from accepting new sounds to queue and teminates once all sounds currently in queue are played.
 	system("pause");
 	exit(0);
 }
