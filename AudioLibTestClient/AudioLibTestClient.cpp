@@ -17,10 +17,20 @@
 // because they are async methods and are not terminated implicitly by underlying windows api.
 
 int main(){
-	playSoundLoop(SOUND_ONE);
+	/*playSound(SOUND_ONE);
+	for (int i = 0; i < 10000; i++)
+		printf("testing\n");
 	Sleep(5000);
 	playSound(SOUND_THREE);
-	printf("test\n");
+	printf("test\n");*/
+
+	/*char *list[256] = { SOUND_ONE, SOUND_TWO, SOUND_THREE };
+	playListInQueue(list, 3);*/
+	initPlayQueue();
+	addSoundToQueue(SOUND_ONE);
+	addSoundToQueue(SOUND_TWO);
+	addSoundToQueue(SOUND_THREE);
+	//stopQueue();
 	system("pause");
 	exit(0);
 }
