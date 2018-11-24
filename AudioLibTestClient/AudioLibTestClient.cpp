@@ -19,7 +19,7 @@
 
 int main(){
 
-	// play one file synchronously. uncomment any of the 3 line below.
+	// play one file synchronously. uncomment any of the 3 lines below.
 	//playSound(SOUND_ONE);
 	//playSound(SOUND_TWO);
 	//playSound(SOUND_THREE);
@@ -58,7 +58,7 @@ int main(){
 	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully.
 	// if we add that method at the end of above block no sound will be played as it stops the queue immediately--asynchronously.
 
-	// TODO implement a delayed stop queue method which stops the queue from accepting new sounds to queue and teminates once all sounds currently in queue are played.
+	// TODO implement a delayed stop queue method which stops the queue from accepting new sounds to queue and terminates once all sounds currently in queue are played.
 	system("pause");
 	exit(0);
 }
