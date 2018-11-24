@@ -16,6 +16,7 @@ extern "C"
 	DECLDIR void playSound(char*);
 	DECLDIR bool initPlayQueue();
 	DECLDIR void addSoundToQueue(char *);
+	DECLDIR void closePlayQueue();
 	DECLDIR void stopPlayQueue();
 	DECLDIR void playSoundLoop(char *);
 	DECLDIR void stopSoundLoop();

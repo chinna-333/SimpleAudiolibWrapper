@@ -19,7 +19,8 @@ using namespace std;
 queue <std::string> playQueue;
 bool isQueueInitiated = false;
 bool queueTerminateCalled = false;
-std::mutex queuemtx, terminatemtx;
+bool isQueueStopped = false;
+std::mutex queuemtx, terminatemtx, stopmtx, initiatemtx;
 
 wchar_t *convertStringToLiteral(char *string){
 	wchar_t wtext[256];
@@ -51,8 +52,16 @@ void queueDeamonThread(){
 			queuefront = playQueue.front();
 			playQueue.pop();
 		}
-		else
+		else{
 			queuefront = "";
+			stopmtx.lock();
+			if (isQueueStopped){
+				stopmtx.unlock();
+				queuemtx.unlock();
+				break;
+			}
+			stopmtx.unlock();
+		}
 		queuemtx.unlock();
 		if (queuefront != ""){
 			convertTochar256(queuefront, file);
@@ -61,6 +70,9 @@ void queueDeamonThread(){
 		else
 			this_thread::sleep_for(std::chrono::milliseconds(400));
 	}
+	initiatemtx.lock();
+	isQueueInitiated = false;
+	initiatemtx.unlock();
 }
 
 extern "C"
@@ -72,15 +84,27 @@ extern "C"
 
 	// initialize play queue. only initialize this once.
 	DECLDIR bool initPlayQueue(){
-		if (isQueueInitiated)
+		initiatemtx.lock();
+		if (isQueueInitiated){
+			initiatemtx.unlock();
 			return false;
+		}
 		isQueueInitiated = true;
+		initiatemtx.unlock();
+		queueTerminateCalled = false;
+		isQueueStopped = false;
 		std::thread t(queueDeamonThread);
 		t.detach();
 	}
 
 	// adds sound to playing queue.
 	DECLDIR void addSoundToQueue(char *fileName){
+		stopmtx.lock();
+		if (isQueueStopped){
+			stopmtx.unlock();
+			return;
+		}
+		stopmtx.unlock();
 		char file[256];
 		convertTochar256(fileName, file);
 		queuemtx.lock();
@@ -88,7 +112,14 @@ extern "C"
 		queuemtx.unlock();
 	}
 
-	// stops the windows sound queue.
+	// stops accepting ne items into queue and terminates play queue after all pending sounds are played.
+	DECLDIR void closePlayQueue(){
+		stopmtx.lock();
+		isQueueStopped = true;
+		stopmtx.unlock();
+	}
+
+	// stops the windows sound queue immediately.
 	DECLDIR void stopPlayQueue(){
 		terminatemtx.lock();
 		if (!queueTerminateCalled){

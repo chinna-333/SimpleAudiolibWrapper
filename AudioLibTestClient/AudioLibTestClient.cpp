@@ -31,7 +31,7 @@ int main(){
 	playSoundLoop(SOUND_ONE);
 	for (int i = 0; i < 10000; i++)
 		printf("playing..\n");		// you can see that the playSoundLoop is asynchronous -- non blocking.
-	Sleep(5000);		// plays the loop for 5 secounds
+	Sleep(5000);		// waits for 5 secounds
 	stopSoundLoop();	// stops the loop after 5 seconds
 	printf("finished\n");
 	*/
@@ -47,18 +47,19 @@ int main(){
 	// the below is asynchronous playing queue. the above mentioned playListInSequence is blocking method.
 	// play queue provides a non blocking approach. ie sound plays in the background. while execution continues.
 	// always call initPlayQueue() before adding to queue. sound is not played until queue is initialized.
+	// call closePlayQueue to close the queue after playing sounds cuurently in the queue.
 	// also note that if main thread is terminated then the play queue stops immediatedly.
 	/*
 	initPlayQueue();
 	addSoundToQueue(SOUND_ONE);
 	addSoundToQueue(SOUND_TWO);
 	addSoundToQueue(SOUND_THREE);
+	closePlayQueue();
 	*/
 
 	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully.
 	// if we add that method at the end of above block no sound will be played as it stops the queue immediately--asynchronously.
 
-	// TODO implement a delayed stop queue method which stops the queue from accepting new sounds to queue and terminates once all sounds currently in queue are played.
 	system("pause");
 	exit(0);
 }
