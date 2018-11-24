@@ -37,4 +37,10 @@ extern "C"
 	DECLDIR void playSoundLoop(char *fileName){
 		PlaySound(convertStringToLiteral(fileName), NULL, SND_LOOP|SND_ASYNC);
 	}
+
+	// plays a list of sounds sequentially. 
+	DECLDIR void playListInQueue(char **fileNamesList, int soundsCount){
+		for (int i = 0; i < soundsCount; i++)
+			playSound(fileNamesList[i]);
+	}
 }
