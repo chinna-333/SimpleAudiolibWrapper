@@ -1,7 +1,8 @@
 #include "stdafx.h"
-#include "audiolib.h"
 #include <Windows.h>
 #include <stdio.h>
+
+#include "audiolib.h"
 
 #define SOUND_ONE "..\\audio assets\\sound1.wav"
 #define SOUND_TWO "..\\audio assets\\sound2.wav"
@@ -19,7 +20,7 @@
 // only .wav files are currently supported.
 
 // always terminate the program with exit(0) if addSoundToQueue() or playSoundLoop() is used. 
-// because they are asynchronous methods and are not terminated implicitly by underlying api.
+// because they are asynchronous methods that are not terminated implicitly by underlying api.
 
 int main(){
 
