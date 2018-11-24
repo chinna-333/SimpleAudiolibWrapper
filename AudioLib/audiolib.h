@@ -14,12 +14,12 @@
 extern "C"
 {
 	DECLDIR void playSound(char*);
-	DECLDIR void stopQueue();
-	DECLDIR void addSoundToQueue(char *);
-	DECLDIR void playSoundLoop(char *);
-	DECLDIR void playListInSequence(char **, int);
 	DECLDIR bool initPlayQueue();
+	DECLDIR void addSoundToQueue(char *);
 	DECLDIR void stopPlayQueue();
+	DECLDIR void playSoundLoop(char *);
+	DECLDIR void stopSoundLoop();
+	DECLDIR void playListInSequence(char **, int);
 }
 
 #endif
