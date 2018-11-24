@@ -17,20 +17,40 @@
 // because they are async methods and are not terminated implicitly by underlying windows api.
 
 int main(){
-	/*playSound(SOUND_ONE);
-	for (int i = 0; i < 10000; i++)
-		printf("testing\n");
-	Sleep(5000);
-	playSound(SOUND_THREE);
-	printf("test\n");*/
 
-	/*char *list[256] = { SOUND_ONE, SOUND_TWO, SOUND_THREE };
-	playListInQueue(list, 3);*/
+	// play one file synchronously. uncomment any of the 3 line below.
+	//playSound(SOUND_ONE);
+	//playSound(SOUND_TWO);
+	//playSound(SOUND_THREE);
+
+
+	// play a sound in a loop until stopSoundLoop is called. Sleep() is defined in Windows.h
+	// below block plays a sound in loop for 5 seconds.
+	/*
+	playSoundLoop(SOUND_ONE);
+	for (int i = 0; i < 10000; i++)
+		printf("playing..\n");		// you can see that the playSoundLoop is asynchronous -- non blocking.
+	Sleep(5000);		// plays the loop for 5 secounds
+	playSound(SOUND_THREE);
+	printf("finished\n");
+	*/
+
+	// play a list of sounds in sequence. uncomment the below block to check it. 
+	/*
+	char *list[256] = { SOUND_ONE, SOUND_TWO, SOUND_THREE };
+	playListInSequence(list, 3);
+	*/
+
+	// the below is asynchronous playing queue. the above mentioned playListInSequence is blocking method.
+	// play queue provides a non blocking approach. ie sound plays in the background. while execution continues.
+	// always call initPlayQueue() before adding to queue. sound is not played until queue is initialized.
+	// also note that if main thread is terminated then the play queue stops immediatedly.
+	/*
 	initPlayQueue();
 	addSoundToQueue(SOUND_ONE);
 	addSoundToQueue(SOUND_TWO);
 	addSoundToQueue(SOUND_THREE);
-	//stopQueue();
+	*/
 	system("pause");
 	exit(0);
 }
