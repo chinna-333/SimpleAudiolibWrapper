@@ -32,7 +32,7 @@ int main(){
 	for (int i = 0; i < 10000; i++)
 		printf("playing..\n");		// you can see that the playSoundLoop is asynchronous -- non blocking.
 	Sleep(5000);		// plays the loop for 5 secounds
-	playSound(SOUND_THREE);
+	stopSoundLoop();	// stops the loop after 5 seconds
 	printf("finished\n");
 	*/
 
