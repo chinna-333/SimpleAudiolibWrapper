@@ -89,7 +89,7 @@ extern "C"
 	}
 
 	// stops the windows sound queue.
-	DECLDIR void stopQueue(){
+	DECLDIR void stopPlayQueue(){
 		terminatemtx.lock();
 		if (!queueTerminateCalled){
 			queueTerminateCalled = true;
@@ -102,8 +102,14 @@ extern "C"
 		PlaySound(convertStringToLiteral(fileName), NULL, SND_LOOP|SND_ASYNC);
 	}
 
+	// stops the currently playing sound loop;
+	DECLDIR void stopSoundLoop(){
+		PlaySound(NULL, 0, 0);
+		return;
+	}
+
 	// plays a list of sounds sequentially. 
-	DECLDIR void playListInQueue(char **fileNamesList, int soundsCount){
+	DECLDIR void playListInSequence(char **fileNamesList, int soundsCount){
 		for (int i = 0; i < soundsCount; i++)
 			playSound(fileNamesList[i]);
 	}
