@@ -7,13 +7,13 @@
 #define SOUND_TWO "..\\audio assets\\sound2.wav"
 #define SOUND_THREE "..\\audio assets\\sound3.wav"
 
-// sound assets are placed under "AudioLib/sound assets" and defined in audiolib.h
+// sound files are placed under audio assets folder
 
-// currently three sound assets are defined in dll -- (audiolib.h) -- SOUND_ONE, SOUND_TWO, SOUND_THREE
-// To add different sounds place the new sounds in above mentioned folder and define them in audiolib.h
+// currently three sound assets are defined from ..\\audio assets -- SOUND_ONE, SOUND_TWO, SOUND_THREE
+// To add different sounds place the new sounds in above mentioned folder and define them
 
 // you can use playSound function to play sound files not in assets also. 
-// simply pass the path (remember to escape every "\") to the sound file in the funtion argument.
+// simply pass the path (remember to escape every "\") to the sound file in the funtion argument -- absolute path also accepted.
 // note that the path must be atmost 256 characters long including null character.
 
 // only .wav files are currently supported.
