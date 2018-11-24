@@ -3,6 +3,10 @@
 #include <Windows.h>
 #include <stdio.h>
 
+#define SOUND_ONE "..\\audio assets\\sound1.wav"
+#define SOUND_TWO "..\\audio assets\\sound2.wav"
+#define SOUND_THREE "..\\audio assets\\sound3.wav"
+
 // sound assets are placed under "AudioLib/sound assets" and defined in audiolib.h
 
 // currently three sound assets are defined in dll -- (audiolib.h) -- SOUND_ONE, SOUND_TWO, SOUND_THREE
