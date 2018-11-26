@@ -17,6 +17,7 @@ using namespace std;
 
 
 queue <std::string> playQueue;
+std::thread playDeamonThread;
 bool isQueueInitiated = false;
 bool queueTerminateCalled = false;
 bool isQueueStopped = false;
@@ -36,8 +37,8 @@ void convertTochar256(std::string source, char destination[256]){
 	destination[i] = '\0';
 }
 
-// deamon play queue thread. checks for files to play in queue.
-void queueDeamonThread(){
+// function to deamon play queue thread. checks for files to play in queue.
+void playSoundQueue(){
 	std::string queuefront;
 	char file[256];
 	while (true){
@@ -93,8 +94,7 @@ extern "C"
 		initiatemtx.unlock();
 		queueTerminateCalled = false;
 		isQueueStopped = false;
-		std::thread t(queueDeamonThread);
-		t.detach();
+		playDeamonThread = std::thread(playSoundQueue);
 	}
 
 	// adds sound to playing queue.
@@ -112,11 +112,12 @@ extern "C"
 		queuemtx.unlock();
 	}
 
-	// stops accepting ne items into queue and terminates play queue after all pending sounds are played.
+	// stops accepting new items into queue and terminates play queue after all pending sounds are played.
 	DECLDIR void closePlayQueue(){
 		stopmtx.lock();
 		isQueueStopped = true;
 		stopmtx.unlock();
+		playDeamonThread.join();
 	}
 
 	// stops the windows sound queue immediately.
@@ -126,6 +127,7 @@ extern "C"
 			queueTerminateCalled = true;
 		}
 		terminatemtx.unlock();
+		playDeamonThread.join();
 	}
 
 	// plays a sound in a Loop until stopQueue() or playSound() is called.

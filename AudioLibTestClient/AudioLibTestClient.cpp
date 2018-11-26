@@ -19,8 +19,8 @@
 
 // only .wav files are currently supported.
 
-// always terminate the program with exit(0) if addSoundToQueue() or playSoundLoop() is used. 
-// because they are asynchronous methods that are not terminated implicitly by underlying api.
+// always terminate the program with exit(0) if playSoundLoop() is used. 
+// because they are asynchronous methods that are not terminated implicitly by underlying windows api.
 
 int main(){
 
@@ -66,5 +66,4 @@ int main(){
 	// if we add that method at the end of above block no sound will be played as it stops the queue immediately--asynchronously.
 
 	system("pause");
-	exit(0);
 }
