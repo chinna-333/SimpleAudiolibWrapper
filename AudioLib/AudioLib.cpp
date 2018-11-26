@@ -137,8 +137,7 @@ extern "C"
 
 	// stops the currently playing sound loop;
 	DECLDIR void stopSoundLoop(){
-		PlaySound(NULL, 0, 0);
-		return;
+		PlaySound(NULL, 0, SND_SYNC);
 	}
 
 	// plays a list of sounds sequentially. 

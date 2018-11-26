@@ -20,7 +20,7 @@
 // only .wav files are currently supported.
 
 // always terminate the program with exit(0) if playSoundLoop() is used. 
-// because they are asynchronous methods that are not terminated implicitly by underlying windows api.
+// because ii is an asynchronous method that is not terminated implicitly by underlying windows api.
 
 int main(){
 
@@ -36,7 +36,7 @@ int main(){
 	playSoundLoop(SOUND_ONE);
 	for (int i = 0; i < 10000; i++)
 		printf("playing..\n");		// you can see that the playSoundLoop is asynchronous -- non blocking.
-	Sleep(5000);		// waits for 5 secounds
+	Sleep(2000);		// waits for 5 secounds
 	stopSoundLoop();	// stops the loop after 5 seconds
 	printf("finished\n");
 	*/
@@ -52,7 +52,8 @@ int main(){
 	// the below is asynchronous playing queue. the above mentioned playListInSequence is blocking method.
 	// play queue provides a non blocking approach. ie sound plays in the background. while execution continues.
 	// always call initPlayQueue() before adding to queue. sound is not played until queue is initialized.
-	// call closePlayQueue to close the queue after playing sounds cuurently in the queue.
+	// call closePlayQueue() to close the queue. 
+	// after closePlayQueue() new sounds cannot be added to the queue, any remaining sounds in the queue are played.
 	// also note that if main thread is terminated then the play queue stops immediatedly.
 	/*
 	initPlayQueue();
@@ -62,8 +63,8 @@ int main(){
 	closePlayQueue();
 	*/
 
-	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully.
-	// if we add that method at the end of above block no sound will be played as it stops the queue immediately--asynchronously.
+	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully as it may terminate the queue without playing any sound.
+	// if we add stopPlayQueue() method instead of closePlayQueue() in above block no sound will be played as it stops the queue immediately--asynchronously.
 
 	system("pause");
 }
