@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="trainSounds.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioLibTestClient.cpp" />

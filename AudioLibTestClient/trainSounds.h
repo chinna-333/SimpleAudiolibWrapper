@@ -1,0 +1,16 @@
+// trainSoundsPath.h defines the sounds that are used for train announcements.
+
+#define TRAIN_NOTIFICATION "..\\audio assets\\railway announcement\\trainNotification.wav"
+#define TRAIN_NUMBER "..\\audio assets\\railway announcement\\trainNumber.wav"
+#define TRAIN_ARRIVED "..\\audio assets\\railway announcement\\hasArrivedOnPlatformNumber.wav"
+#define TRAIN_ARRIVING "..\\audio assets\\railway announcement\\isArrivingSoon.wav"
+#define NUMBER_ZERO "..\\audio assets\\railway announcement\\zero.wav"
+#define NUMBER_ONE "..\\audio assets\\railway announcement\\one.wav"
+#define NUMBER_TWO "..\\audio assets\\railway announcement\\two.wav"
+#define NUMBER_THREE "..\\audio assets\\railway announcement\\three.wav"
+#define NUMBER_FOUR "..\\audio assets\\railway announcement\\four.wav"
+#define NUMBER_FIVE "..\\audio assets\\railway announcement\\five.wav"
+#define NUMBER_SIX "..\\audio assets\\railway announcement\\six.wav"
+#define NUMBER_SEVEN "..\\audio assets\\railway announcement\\seven.wav"
+#define NUMBER_EIGHT "..\\audio assets\\railway announcement\\eight.wav"
+#define NUMBER_NINE "..\\audio assets\\railway announcement\\nine.wav"
