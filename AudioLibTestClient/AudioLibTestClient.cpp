@@ -8,6 +8,8 @@
 #define SOUND_TWO "..\\audio assets\\sound2.wav"
 #define SOUND_THREE "..\\audio assets\\sound3.wav"
 
+#include "trainSounds.h"
+
 // sound files are placed under audio assets folder
 
 // currently three sound assets are defined from ..\\audio assets -- SOUND_ONE, SOUND_TWO, SOUND_THREE
@@ -55,16 +57,45 @@ int main(){
 	// call closePlayQueue() to close the queue. 
 	// after closePlayQueue() new sounds cannot be added to the queue, any remaining sounds in the queue are played.
 	// also note that if main thread is terminated then the play queue stops immediatedly.
+	// uncomment below block to check it.
 	/*
 	initPlayQueue();
 	addSoundToQueue(SOUND_ONE);
 	addSoundToQueue(SOUND_TWO);
 	addSoundToQueue(SOUND_THREE);
+	for (int i = 0; i < 1000; i++)
+		printf("testing...\n");	// prints while playing sounds as they are asynchronous methods.
+	closePlayQueue(); // note that closePlayQueue is blocking. ie it stops main thread execution until the queue is emptied.
+	*/
+	// another method called stopPlayQueue() is also available which stops the queue immediately. 
+	// it must be used carefully as it may terminate the queue before playing any sound -- asynchronously.
+	// if we add stopPlayQueue() method instead of closePlayQueue() in above block,
+	// no sound will be played as it stops the queue immediately--asynchronously.
+
+
+	// railway announcement test
+	char *list1[256] = { // these sounds are defined in trainSoundsPath.h
+		TRAIN_NOTIFICATION, 
+		TRAIN_NUMBER, 
+		NUMBER_ONE, 
+		NUMBER_TWO, 
+		NUMBER_SEVEN, 
+		NUMBER_THREE, 
+		NUMBER_EIGHT, 
+		TRAIN_ARRIVING 
+	};
+	
+	// non-blocking
+	/* 
+	initPlayQueue();
+	for (int i = 0; i < 8; i++)
+		addSoundToQueue(list1[i]);
 	closePlayQueue();
 	*/
 
-	// there is stopPlayQueue() method which stops the queue immediately. it must be used carefully as it may terminate the queue without playing any sound.
-	// if we add stopPlayQueue() method instead of closePlayQueue() in above block no sound will be played as it stops the queue immediately--asynchronously.
-
+	// blocking
+	/*
+	playListInSequence(list1, 8);
+	*/
 	system("pause");
 }
